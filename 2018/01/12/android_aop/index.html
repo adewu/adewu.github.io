@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Android AOP方案对比 | 晓明</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Android AOP方案对比什么是面向切面编程（Aop）面向切面编程（AOP，Aspect-Oriented Programming）是一种编程范式，它允许开发者通过切面（Aspect）来模块化横切关注点，并将它们封装成可重用的组件。横切关注点是指那些存在于应用程序中多个模块中的功能，它们通常与应用程序的核心业务逻辑无关，例如日志记录、事务管理、安全性等。 在面向切面编程中，切面是一个模块化的单">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android AOP方案对比">
+<meta property="og:url" content="https://adewu.github.io/2018/01/12/android_aop/index.html">
+<meta property="og:site_name" content="晓明">
+<meta property="og:description" content="Android AOP方案对比什么是面向切面编程（Aop）面向切面编程（AOP，Aspect-Oriented Programming）是一种编程范式，它允许开发者通过切面（Aspect）来模块化横切关注点，并将它们封装成可重用的组件。横切关注点是指那些存在于应用程序中多个模块中的功能，它们通常与应用程序的核心业务逻辑无关，例如日志记录、事务管理、安全性等。 在面向切面编程中，切面是一个模块化的单">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*2vhTJ9a29TEltzh-VoRBGg.jpeg">
+<meta property="article:published_time" content="2018-01-12T09:21:00.000Z">
+<meta property="article:modified_time" content="2024-02-10T06:09:47.296Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Aop">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*2vhTJ9a29TEltzh-VoRBGg.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://adewu.github.io/2018/01/12/android_aop/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Android AOP方案对比',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-10 14:09:47'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="晓明" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 全部</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="晓明"><span class="site-name">晓明</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 全部</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 连接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Android AOP方案对比</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2018-01-12T09:21:00.000Z" title="发表于 2018-01-12 17:21:00">2018-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Android/">Android</a></span></div><div class="meta-secondline"></div></div></div><article class="post-content" id="article-container"><h2 id="Android-AOP方案对比"><a href="#Android-AOP方案对比" class="headerlink" title="Android AOP方案对比"></a>Android AOP方案对比</h2><h3 id="什么是面向切面编程（Aop）"><a href="#什么是面向切面编程（Aop）" class="headerlink" title="什么是面向切面编程（Aop）"></a>什么是面向切面编程（Aop）</h3><p>面向切面编程（AOP，Aspect-Oriented Programming）是一种编程范式，它允许开发者通过切面（Aspect）来模块化横切关注点，并将它们封装成可重用的组件。横切关注点是指那些存在于应用程序中多个模块中的功能，它们通常与应用程序的核心业务逻辑无关，例如日志记录、事务管理、安全性等。</p>
+<p>在面向切面编程中，切面是一个模块化的单元，它横跨一个或多个对象，提供了在应用程序中的多个位置进行代码重用的机制。切面可以定义一组横切关注点，并将它们与应用程序的核心业务逻辑分离开来。这样，当需要修改或者添加新的横切关注点时，只需要修改或者添加对应的切面，而不需要修改核心业务逻辑代码。</p>
+<p>面向切面编程的核心概念是切面、连接点、通知、切点和增强。其中，切面是关注点的模块化单元，连接点是在应用程序中可以插入切面的点，通知是切面在连接点处执行的代码，切点是一组连接点的集合，而增强是在切点处执行的通知的行为。</p>
+<p>总的来说，面向切面编程通过将横切关注点与核心业务逻辑进行解耦，提高了代码的模块化性、可维护性和可重用性，使得应用程序更易于理解、扩展和维护。</p>
+<h3 id="主流AOP技术分类"><a href="#主流AOP技术分类" class="headerlink" title="主流AOP技术分类"></a>主流AOP技术分类</h3><p><strong>首先</strong>，从织入的时机的角度看，可以分为源码阶段、class阶段、dex阶段、运行时织入。</p>
+<p>对于前三项<strong>源码阶段、class阶段、dex织入</strong>，由于他们都发生在class加载到虚拟机前，我们统称为静态织入， 而在运行阶段发生的改动，我们统称为动态织入。</p>
+<p>静态织入：</p>
+<ul>
+<li>APT</li>
+<li>AspectJ</li>
+<li>ASM</li>
+<li>Javassit</li>
+</ul>
+<p>动态织入：</p>
+<ul>
+<li>java动态代理</li>
+<li>cglib</li>
+<li>Javassit</li>
+</ul>
+<p>静态织入发生在编译器，因此几乎不会对运行时的效率产生影响；动态织入发生在运行期，可直接将字节码写入内存，并通过反射完成类的加载，所以效率相对较低，但更灵活。</p>
+<p><strong>其次</strong>，我们需要关注这些框架具备哪切面编程的能力，这有助于帮助我做技术选型，由于AspectJ、ASM 、Javassit是相对比较完善的AOP框架，因此只对三者进行比较。</p>
+<table>
+<thead>
+<tr>
+<th><strong>能力</strong></th>
+<th><strong>AspectJ</strong></th>
+<th><strong>ASM</strong></th>
+<th><strong>Javassit</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>切面抽象</td>
+<td>✅</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>切点抽象</td>
+<td></td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>通知类型抽象</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<p>其中：</p>
+<ul>
+<li>切面抽象：具备筛选过滤class的能力，比如我们想为Activity的所有生命周期织入代码，那你是不是首先需要具备过滤Activity及其子类的能力。</li>
+<li>切点抽象：具体到某个class，是否具备方法、字段、注解访问的能力。</li>
+<li>通知类型抽象：是否直接支持在方法前、后、中直接织入代码。</li>
+</ul>
+<p>当然不具备能力不代表不能做AOP编程，可以通过其他方法解决，只是易用性的问题。</p>
+<h3 id="APT"><a href="#APT" class="headerlink" title="APT"></a>APT</h3><p>APT 是 Annotation Processing Tool 的缩写，即注解处理工具。APT 是一种工具，用于在编译时处理 Java 源代码中的注解，生成额外的 Java 代码或者其他文件，以帮助开发者完成一些重复性的工作或者自动生成一些代码。</p>
+<p>通过 APT，开发者可以定义自己的注解，并编写相应的处理器来处理这些注解。在编译时，APT 会扫描源代码中的注解，并调用相应的处理器来生成额外的代码或者其他文件。这些生成的代码可以用于实现一些功能，如自动实现 Parcelable 接口、生成单例模式的代码、自动生成代理类等。</p>
+<p>APT 在 Android 开发中有着广泛的应用，例如 ButterKnife 库就是利用 APT 实现的，它通过在 View 属性上添加注解，然后在编译时生成相应的 View 绑定代码，从而简化了代码编写。另外，ButterKnife、Dagger等一些常用的 Android 库也使用了 APT 来生成代码。</p>
+<p>总的来说，APT 是一种强大的工具，可以在编译时自动化处理一些重复性的工作，提高了开发效率，减少了开发者的工作量。</p>
+<h3 id="AspectJ"><a href="#AspectJ" class="headerlink" title="AspectJ"></a>AspectJ</h3><p>AspectJ 是一个基于 Java 语言的面向切面编程（AOP）的扩展框架，它提供了一种简洁而强大的方式来实现横切关注点的模块化和重用。</p>
+<p>AspectJ 扩展了 Java 语言，引入了一组新的关键字和语法规则，使得开发者可以更方便地定义切面和通知，并将它们应用到代码中的特定连接点上。AspectJ 通过编译时的静态代码织入技术，将切面的行为嵌入到应用程序的字节码中，从而实现了对横切关注点的有效管理和控制。</p>
+<p>使用 AspectJ，开发者可以通过注解或者 XML 配置文件来定义切面，并使用 Pointcut 表达式来指定切入点（即横切关注点所在的位置）。然后，开发者可以编写 Advice（通知）来定义切面在连接点处执行的代码逻辑，例如在方法调用之前或之后执行的操作。</p>
+<p>举个简单的例子，假设我们想统计所有view的点击事件，使用AspectJ只需要写一个类即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MethodAspect</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;MethodAspect5&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//切面表达式，声明需要过滤的类和方法 </span></span><br><span class="line">    <span class="meta">@Pointcut(&quot;execution(* android.view.View.OnClickListener+.onClick(..))&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">callMethod</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//before表示在方法调用前织入</span></span><br><span class="line">    <span class="meta">@before(&quot;callMethod()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">beforeMethodCall</span><span class="params">(ProceedingJoinPoint joinPoint)</span> &#123;</span><br><span class="line">    	<span class="comment">//编写业务代码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="javassit"><a href="#javassit" class="headerlink" title="javassit"></a>javassit</h3><p>Javassist 是一个 Java 字节码操作库，它提供了一种方便的方式来动态修改类的字节码，生成新的类或者修改已有类的行为。Javassist 的全称是 Java Programming Assistant，它允许开发者在运行时动态地创建、修改和操作 Java 类，而无需直接操作字节码。</p>
+<p>Javassist 提供了一组简洁而强大的 API，使得开发者可以在运行时对类进行各种操作，例如创建新的类、修改已有类的字段、方法或者构造函数、添加新的方法、修改方法的实现、以及执行类的加载和热替换等。通过 Javassist，开发者可以实现诸如 AOP、动态代理、类加载器、字节码增强等各种功能。</p>
+<p>以下是 Javassist 的简单用例，演示了如何使用 Javassist 创建一个新的类，并添加一个新的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javassist.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JavassistExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 创建类池</span></span><br><span class="line">        <span class="type">ClassPool</span> <span class="variable">classPool</span> <span class="operator">=</span> ClassPool.getDefault();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建一个新的类</span></span><br><span class="line">        <span class="type">CtClass</span> <span class="variable">newClass</span> <span class="operator">=</span> classPool.makeClass(<span class="string">&quot;ExampleClass&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加一个新的方法</span></span><br><span class="line">        <span class="type">CtMethod</span> <span class="variable">newMethod</span> <span class="operator">=</span> CtNewMethod.make(<span class="string">&quot;public void hello() &#123; System.out.println(\&quot;Hello, Javassist!\&quot;); &#125;&quot;</span>, newClass);</span><br><span class="line">        newClass.addMethod(newMethod);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将新类加载到内存中</span></span><br><span class="line">        Class&lt;?&gt; clazz = newClass.toClass();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实例化新类并调用方法</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> clazz.newInstance();</span><br><span class="line">        clazz.getMethod(<span class="string">&quot;hello&quot;</span>).invoke(obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="ASM"><a href="#ASM" class="headerlink" title="ASM"></a>ASM</h3><p>ASM 是一个 Java 字节码操作和分析框架，它允许开发者在编译时或运行时动态生成或修改 Java 类的字节码。ASM 的全称是 Java Bytecode Engineering Library，它提供了一组简单而强大的 API，使得开发者可以直接操作字节码，从而实现对 Java 类的各种高级操作。</p>
+<p>ASM 具有轻量级、高性能和灵活性的特点，它的设计目标是尽可能地接近 Java 字节码的底层结构，以最小的开销实现对字节码的操作。ASM 提供了一种基于访问者模式的 API，开发者可以通过实现不同的访问者接口来遍历、解析和修改类的字节码，从而实现对类的各种操作，如新增、删除、修改字段、方法、注解等。</p>
+<p>ASM 可以广泛应用于 Java 字节码的动态生成、增强和优化等领域，例如动态代理、AOP（面向切面编程）、代码生成器、类加载器、代码混淆、性能优化等。由于其高性能和灵活性，ASM 被广泛应用于各种 Java 框架和工具中，如 Spring、Hibernate、Mockito 等。</p>
+<p>完整的学习ASM必须了解字节码和JVM相关知识。比如要织入一句简单的日志输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Log.d(<span class="string">&quot;tag&quot;</span>, <span class="string">&quot; onCreate&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用ASM编写是下面这个样子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mv.visitLdcInsn(<span class="string">&quot;tag&quot;</span>);</span><br><span class="line">mv.visitLdcInsn(<span class="string">&quot;onCreate&quot;</span>);</span><br><span class="line">mv.visitMethodInsn(INVOKESTATIC, <span class="string">&quot;android/util/Log&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;(Ljava/lang/String;Ljava/lang/String;)I&quot;</span>, <span class="literal">false</span>);</span><br><span class="line">mv.visitInsn(POP);</span><br></pre></td></tr></table></figure>
+
+<p>可以看出ASM与AspectJ有很大的不同，AspectJ织入的代码就是实际编写的代码，但ASM必须使用其提供的API编写指令。一行java代码可能对应多行ASM API代码，因为一行java代码背后可能隐藏这多个JVM指令。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>动态代理是代理模式的一种实现，用于在运行时动态增强原始类的行为，实现方式是运行时直接生成class字节码并将其加载进虚拟机。</p>
+<p>JDK本身就提供一个Proxy类用于实现动态代理。 我们通常使用下面的API创建代理类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java.lang.reflect.Proxy</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">newProxyInstance</span><span class="params">(ClassLoader loader,</span></span><br><span class="line"><span class="params">    Class&lt;?&gt;[] interfaces, </span></span><br><span class="line"><span class="params">    InvocationHandler h)</span></span><br></pre></td></tr></table></figure>
+
+<p>其中在InvocationHandler实现类中定义核心切点代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InvocationHandlerImpl</span> <span class="keyword">implements</span> <span class="title class_">InvocationHandler</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 被代理的实例 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Object</span> <span class="variable">mObj</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">InvocationHandlerImpl</span><span class="params">(Object obj)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mObj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="comment">//前切入点</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> method.invoke(<span class="built_in">this</span>.mObj, args);</span><br><span class="line">        <span class="comment">//后切入点</span></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>java动态代理最大的问题是只能代理接口，而不能代理普通类或者抽象类，这是因为默认创建的代理类继承Porxy，而java又不支持多继承，这一点极大的限制了动态代理的使用场景，cglib可代理普通类。</p>
+<h3 id="AOP框架的特点及优劣势"><a href="#AOP框架的特点及优劣势" class="headerlink" title="AOP框架的特点及优劣势"></a>AOP框架的特点及优劣势</h3><p><img src="/../imgs/android_aop_compare.png" alt="alt text" title="aop对比"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Aop/">Aop</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2018/05/02/react_native/" title="初识React Native"><img class="cover" src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*GkR93AAlILkmE_3QQf88Ug.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">初识React Native</div></div></a></div><div class="next-post pull-right"><a href="/2017/09/26/android_binder/" title="Android Binder机制解析"><img class="cover" src="https://www.computerhope.com/jargon/i/ipc.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Android Binder机制解析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">John Doe</div><div class="author-info__description">晓明</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:wuxm90@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Android-AOP%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94"><span class="toc-number">1.</span> <span class="toc-text">Android AOP方案对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%BC%96%E7%A8%8B%EF%BC%88Aop%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">什么是面向切面编程（Aop）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%B5%81AOP%E6%8A%80%E6%9C%AF%E5%88%86%E7%B1%BB"><span class="toc-number">1.2.</span> <span class="toc-text">主流AOP技术分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#APT"><span class="toc-number">1.3.</span> <span class="toc-text">APT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AspectJ"><span class="toc-number">1.4.</span> <span class="toc-text">AspectJ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#javassit"><span class="toc-number">1.5.</span> <span class="toc-text">javassit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ASM"><span class="toc-number">1.6.</span> <span class="toc-text">ASM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-number">1.7.</span> <span class="toc-text">动态代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AOP%E6%A1%86%E6%9E%B6%E7%9A%84%E7%89%B9%E7%82%B9%E5%8F%8A%E4%BC%98%E5%8A%A3%E5%8A%BF"><span class="toc-number">1.8.</span> <span class="toc-text">AOP框架的特点及优劣势</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2018/05/12/android_things/" title="Android Things是否会成为物联网领域的重要参与者？【译】"><img src="https://devopedia.org/images/article/55/9977.1516073792.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Android Things是否会成为物联网领域的重要参与者？【译】"/></a><div class="content"><a class="title" href="/2018/05/12/android_things/" title="Android Things是否会成为物联网领域的重要参与者？【译】">Android Things是否会成为物联网领域的重要参与者？【译】</a><time datetime="2018-05-12T10:21:00.000Z" title="发表于 2018-05-12 18:21:00">2018-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2018/05/02/react_native/" title="初识React Native"><img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*GkR93AAlILkmE_3QQf88Ug.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="初识React Native"/></a><div class="content"><a class="title" href="/2018/05/02/react_native/" title="初识React Native">初识React Native</a><time datetime="2018-05-01T23:21:00.000Z" title="发表于 2018-05-02 07:21:00">2018-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2018/01/12/android_aop/" title="Android AOP方案对比"><img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*2vhTJ9a29TEltzh-VoRBGg.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Android AOP方案对比"/></a><div class="content"><a class="title" href="/2018/01/12/android_aop/" title="Android AOP方案对比">Android AOP方案对比</a><time datetime="2018-01-12T09:21:00.000Z" title="发表于 2018-01-12 17:21:00">2018-01-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2017/09/26/android_binder/" title="Android Binder机制解析"><img src="https://www.computerhope.com/jargon/i/ipc.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Android Binder机制解析"/></a><div class="content"><a class="title" href="/2017/09/26/android_binder/" title="Android Binder机制解析">Android Binder机制解析</a><time datetime="2017-09-26T03:22:00.000Z" title="发表于 2017-09-26 11:22:00">2017-09-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2017/09/20/android_custom_view/" title="自定义View流程"><img src="https://akaddesign.com/wp-content/uploads/2017/05/a6-1030x591.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="自定义View流程"/></a><div class="content"><a class="title" href="/2017/09/20/android_custom_view/" title="自定义View流程">自定义View流程</a><time datetime="2017-09-20T11:52:00.000Z" title="发表于 2017-09-20 19:52:00">2017-09-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div></div></body></html>
